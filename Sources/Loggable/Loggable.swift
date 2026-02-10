@@ -1,5 +1,4 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
+@_exported import os
 
 @attached(member, names: named(`log`))
 public macro Loggable() = #externalMacro(module: "LoggableMacros", type: "LoggableMacro")
