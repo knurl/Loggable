@@ -1,6 +1,5 @@
 import Foundation
 import Loggable
-import os
 
 @available(macOS 11.0, *)
 @Loggable

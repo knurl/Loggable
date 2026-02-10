@@ -20,7 +20,7 @@ public struct LoggableMacro: MemberMacro {
 
         // Generate the static Logger property
         let decl: DeclSyntax = """
-        let log = Logger(
+        let log = os.Logger(
             subsystem: Bundle.main.bundleIdentifier!,
             category: "\(raw: identifier)"
         )
