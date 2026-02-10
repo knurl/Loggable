@@ -1,8 +1,11 @@
+import Foundation
 import Loggable
+import os
 
-let a = 17
-let b = 25
-
-let (result, code) = #stringify(a + b)
-
-print("The value \(result) was produced by the code \"\(code)\"")
+@available(macOS 11.0, *)
+@Loggable
+final class FooBar {
+    init() {
+        log.info("I've just initialized myself")
+    }
+}
