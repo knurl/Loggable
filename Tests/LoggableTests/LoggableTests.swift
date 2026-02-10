@@ -9,7 +9,7 @@ import XCTest
 import LoggableMacros
 
 let testMacros: [String: Macro.Type] = [
-    "stringify": StringifyMacro.self,
+    "Loggable": LoggableMacro.self,
 ]
 #endif
 
