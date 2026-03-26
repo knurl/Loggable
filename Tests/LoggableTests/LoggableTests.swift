@@ -32,6 +32,7 @@ final class LoggableTests: XCTestCase {
                     subsystem: Bundle.main.bundleIdentifier!,
                     category: "Foo"
                 )
+                var log: os.Logger { Self.log }
             }
             """,
             macros: testMacros

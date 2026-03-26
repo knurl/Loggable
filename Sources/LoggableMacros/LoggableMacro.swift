@@ -24,6 +24,7 @@ public struct LoggableMacro: MemberMacro {
             subsystem: Bundle.main.bundleIdentifier!,
             category: "\(raw: identifier)"
         )
+        var log: os.Logger { Self.log }
         """
 
         return [decl]
