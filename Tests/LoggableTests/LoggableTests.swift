@@ -14,31 +14,26 @@ let testMacros: [String: Macro.Type] = [
 #endif
 
 final class LoggableTests: XCTestCase {
-    func testMacro() throws {
+    func testAddsStaticLogMember() throws {
         #if canImport(LoggableMacros)
         assertMacroExpansion(
             """
-            #stringify(a + b)
+            @Loggable
+            class Foo {
+                func bar() {}
+            }
             """,
-            expandedSource: """
-            (a + b, "a + b")
+            expandedSource:
+            """
+            class Foo {
+                func bar() {}
+            
+                private static let log = os.Logger(
+                    subsystem: Bundle.main.bundleIdentifier!,
+                    category: "Foo"
+                )
+            }
             """,
-            macros: testMacros
-        )
-        #else
-        throw XCTSkip("macros are only supported when running tests for the host platform")
-        #endif
-    }
-
-    func testMacroWithStringLiteral() throws {
-        #if canImport(LoggableMacros)
-        assertMacroExpansion(
-            #"""
-            #stringify("Hello, \(name)")
-            """#,
-            expandedSource: #"""
-            ("Hello, \(name)", #""Hello, \(name)""#)
-            """#,
             macros: testMacros
         )
         #else
