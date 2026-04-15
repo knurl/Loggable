@@ -8,3 +8,12 @@ final class FooBar {
         log.info("I've just initialized myself")
     }
 }
+
+@Loggable
+actor BazBar {
+    init() {
+        log.info("I've just initialized myself")
+        log.error("This is an error message")
+        log.debug("This is a debug message")
+    }
+}

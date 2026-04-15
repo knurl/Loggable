@@ -20,10 +20,10 @@ public struct LoggableMacro: MemberMacro {
 
         // Generate the static Logger property
         let decl: DeclSyntax = """
-        private static let log = os.Logger(
-            subsystem: Bundle.main.bundleIdentifier!,
-            category: "\(raw: identifier)"
-        )
+        private static let log: os.Logger = {
+            let subsystem = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String ?? "unknown"
+            return os.Logger(subsystem: subsystem, category: "\(raw: identifier)")
+        }()
         var log: os.Logger { Self.log }
         """
 
