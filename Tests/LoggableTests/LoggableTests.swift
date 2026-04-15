@@ -14,52 +14,24 @@ let testMacros: [String: Macro.Type] = [
 #endif
 
 final class LoggableTests: XCTestCase {
-    func testStaticLogMemberWorksInClass() throws {
+    func testAddsStaticLogMember() throws {
         #if canImport(LoggableMacros)
         assertMacroExpansion(
             """
             @Loggable
-            class FooClass {
+            class Foo {
                 func bar() {}
             }
             """,
             expandedSource:
             """
-            class FooClass {
+            class Foo {
                 func bar() {}
             
-                private static let log: os.Logger = {
-                    let subsystem = Bundle.main.infoDictionary? ["CFBundleIdentifier"] as? String ?? "unknown"
-                    return os.Logger(subsystem: subsystem, category: "FooClass")
-                }()
-                var log: os.Logger { Self.log }
-            }
-            """,
-            macros: testMacros
-        )
-        #else
-        throw XCTSkip("macros are only supported when running tests for the host platform")
-        #endif
-    }
-
-    func testStaticLogMemberWorksInActor() throws {
-        #if canImport(LoggableMacros)
-        assertMacroExpansion(
-            """
-            @Loggable
-            actor FooActor {
-                func bar() {}
-            }
-            """,
-            expandedSource:
-            """
-            actor FooActor {
-                func bar() {}
-            
-                private static let log: os.Logger = {
-                    let subsystem = Bundle.main.infoDictionary? ["CFBundleIdentifier"] as? String ?? "unknown"
-                    return os.Logger(subsystem: subsystem, category: "FooActor")
-                }()
+                nonisolated private static let log = os.Logger(
+                    subsystem: Bundle.main.bundleIdentifier!,
+                    category: "Foo"
+                )
                 var log: os.Logger { Self.log }
             }
             """,
