@@ -28,8 +28,8 @@ final class LoggableTests: XCTestCase {
             class Foo {
                 func bar() {}
             
-                nonisolated private static let log = os.Logger(
-                    subsystem: Bundle.main.bundleIdentifier!,
+                private static let log = os.Logger(
+                    subsystem: String(#fileID.split(separator: "/").first ?? "unknown"),
                     category: "Foo"
                 )
                 var log: os.Logger { Self.log }
