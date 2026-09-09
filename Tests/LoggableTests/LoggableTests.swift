@@ -28,10 +28,12 @@ final class LoggableTests: XCTestCase {
             class Foo {
                 func bar() {}
             
-                private static let log = os.Logger(
-                    subsystem: String(#fileID.split(separator: "/").first ?? "unknown"),
-                    category: "Foo"
-                )
+                private static var log: os.Logger {
+                    os.Logger(
+                        subsystem: String(#fileID.split(separator: "/").first ?? "unknown"),
+                        category: "Foo"
+                    )
+                }
                 var log: os.Logger { Self.log }
             }
             """,

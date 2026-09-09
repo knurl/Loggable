@@ -20,10 +20,12 @@ public struct LoggableMacro: MemberMacro {
 
         // Generate the static Logger property
         let decl: DeclSyntax = """
-        private static let log = os.Logger(
-            subsystem: String(#fileID.split(separator: "/").first ?? "unknown"),
-            category: "\(raw: identifier)"
-        )
+        private static var log: os.Logger {
+            os.Logger(
+                subsystem: String(#fileID.split(separator: "/").first ?? "unknown"),
+                category: "\(raw: identifier)"
+            )
+        }
         var log: os.Logger { Self.log }
         """
 
