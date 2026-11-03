@@ -20,7 +20,7 @@ public struct LoggableMacro: MemberMacro {
 
         // Generate the static Logger property
         let decl: DeclSyntax = """
-        private static var log: os.Logger {
+        private nonisolated static var log: os.Logger {
             os.Logger(
                 subsystem: String(#fileID.split(separator: "/").first ?? "unknown"),
                 category: "\(raw: identifier)"

@@ -28,7 +28,7 @@ final class LoggableTests: XCTestCase {
             class Foo {
                 func bar() {}
             
-                private static var log: os.Logger {
+                private nonisolated static var log: os.Logger {
                     os.Logger(
                         subsystem: String(#fileID.split(separator: "/").first ?? "unknown"),
                         category: "Foo"
